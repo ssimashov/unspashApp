@@ -12,18 +12,21 @@ class TabbarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        tabBar.backgroundColor = .blue
+        
+        let mainVC = MainViewController()
+        let favoriteVC = FavoriteViewController()
+        
+        viewControllers = [createNavigationController(rootViewController: mainVC, title: "`Find", image: UIImage(systemName: "photo.on.rectangle.angled")!),
+        createNavigationController(rootViewController: favoriteVC, title: "Favorite", image: UIImage(systemName: "heart")!)]
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func createNavigationController(rootViewController: UIViewController, title: String, image: UIImage) -> UIViewController {
+        let navigationVC = UINavigationController (rootViewController: rootViewController)
+        navigationVC.tabBarItem.title = title
+        navigationVC.tabBarItem.image = image
+        
+        return navigationVC
     }
-    */
-
 }
