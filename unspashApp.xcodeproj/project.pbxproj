@@ -180,18 +180,10 @@
 		F646931E28C3878A007A4443 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F646931F28C38794007A4443 /* Cells */,
+				F646932228C3DE84007A4443 /* FavoriteCollectionViewCell.swift */,
+				F646932028C387BB007A4443 /* MainCollectionViewCell.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		F646931F28C38794007A4443 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				F646932028C387BB007A4443 /* MainCollectionViewCell.swift */,
-				F646932228C3DE84007A4443 /* FavoriteCollectionViewCell.swift */,
-			);
-			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
