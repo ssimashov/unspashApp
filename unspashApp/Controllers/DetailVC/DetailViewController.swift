@@ -6,24 +6,180 @@
 //
 
 import UIKit
+import Alamofire
+import RealmSwift
 
 class DetailViewController: UIViewController {
-
+    
+    // MARK: - Properties
+    
+    lazy var detailView: DetailView = {
+        let view = DetailView()
+        return view
+    }()
+    
+    let networkService = NetworkService()
+    var data: GetPhotoResults?
+    var results: Results<GetPhotoResults>?
+    var photoID: String?
+    var isLiked: Bool?
+    
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        configureUI()
+        getData()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let viewWidth = view.bounds.width
+        
+        guard let imageWidth = data?.width, let imageHeight = data?.height else { return }
+        let floatWidth = CGFloat(imageWidth)
+        let floatHeight = CGFloat(imageHeight)
+        let aspectRatio = floatHeight / floatWidth
+        let height = viewWidth * aspectRatio
+        detailView.imageView.heightAnchor.constraint(equalToConstant: height).isActive = true
+        
+        detailView.likeControl.setupLikeColor()
     }
-    */
+    
+    // MARK: - Methods
+    
+    private func configureUI() {
+        view.backgroundColor = .white
+        navigationItem.title = ControllerTitleNames.detailControllerTitle.rawValue
+        
+        detailView.detailVC = self
+        detailView.likeControl.addTarget(self, action: #selector(addToFavorites), for: .touchUpInside)
+    }
+    
+    @objc func addToFavorites(_ : UIButton) {
+        guard let data = data else { return }
+        
+        var idFromRealm = ""
+        
+        do {
+            let realm = try Realm()
+            results = realm.objects(GetPhotoResults.self).filter("id CONTAINS '\(data.id)'")
+            if let id = results?.first?.id {
+                idFromRealm = id
+            }
+        } catch {
+            print(error)
+        }
 
+        if isLiked == false && photoID != idFromRealm {
+            data.currentTime = getCurrentTime()
+            data.isLiked = true
+            
+            ChangeDataInRealm.saveData(data)
+            
+            alert(message: "Фото успешно добавлено!")
+            
+        } else if isLiked == true && photoID == idFromRealm {
+            
+            ChangeDataInRealm.deleteData(data)
+            
+            alert(message: "Фото удалено")
+        }
+    }
+    
+    private func getData() {
+        guard let id = photoID else { return }
+        
+        networkService.getPhoto(photoId: id) { [weak self] response in
+            guard let self = self else { return }
+            
+            self.data = response
+
+            guard let data = self.data else { return }
+            guard let name = data.user?.name else { return }
+            guard let url = data.urls?.regular else { return }
+            let downloads = Double(data.downloads).addSeparator()
+            let createdAt = data.createdAt
+            
+            self.fetchPhoto(url: url)
+            self.detailView.nameContentView.label.text = name
+            self.detailView.downloadsContentView.label.text = downloads
+            self.detailView.createdAtContentView.label.text = self.changeDateFormat(date: createdAt)
+            
+            if let country = data.location?.country,
+               let city = data.location?.city {
+                self.detailView.locationContentView.label.text = "\(city), \(country)"
+            }
+        }
+        
+        do {
+            let realm = try Realm()
+            results = realm.objects(GetPhotoResults.self).filter("id CONTAINS '\(id)'")
+            guard let isLikedFromRealm = results?.first?.isLiked else { return isLiked = false}
+            detailView.likeControl.isLiked = isLikedFromRealm
+            isLiked = isLikedFromRealm
+        } catch {
+            print(error)
+        }
+    }
+    
+    // Получение изображения из сети
+    private func fetchPhoto(url: String) {
+        if let url = URL(string: url) {
+            DispatchQueue.global().async {
+                AF.download(url, method: .get).responseData { response in
+                    guard let data = response.value else { return }
+                    DispatchQueue.main.async {
+                        self.detailView.imageView.image = UIImage(data: data)
+                    }
+                }
+            }
+        }
+    }
+    
+    // Изменение формата даты для отображения createdAT
+    func changeDateFormat(date: String) -> String {
+        let oldDateFormat = DateFormatter()
+        oldDateFormat.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        
+        let newDateFormat = DateFormatter()
+        newDateFormat.dateFormat = "d MMMM, yyyy"
+        
+        if let oldDate = oldDateFormat.date(from: date) {
+            let newDate = newDateFormat.string(from: oldDate)
+            return newDate
+        } else {
+            return "There was an error decoding the string"
+        }
+    }
+    
+    // Разделитель тысяч для числа загрузок
+    func addPoints(inputNumber: NSMutableString) -> String {
+        var count: Int = inputNumber.length
+        while count >= 4 {
+            count = count - 3
+            inputNumber.insert(" ", at: count) // you also can use ","
+        }
+        print(inputNumber)
+        return String(inputNumber)
+    }
+
+    // Получение текущего времени для добавления нового понравившегося изображения в начало таблицы
+    func getCurrentTime() -> String {
+        let now = Date()
+        let formatter = DateFormatter()
+        formatter.timeZone = .current
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
+        let dateString = formatter.string(from: now)
+        return dateString
+    }
+    
+    // Уведомление об успешном выполнении действия
+    func alert(message: String) {
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alertController.addAction(action)
+        present(alertController, animated: true, completion: nil)
+    }
 }

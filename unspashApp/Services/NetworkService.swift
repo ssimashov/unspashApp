@@ -36,22 +36,22 @@ class NetworkService {
     }
     
     
-//    func getPhoto (photoId: String, completion: @escaping (GetPhotoResults) -> Void){
-//        let url = "https://api.unsplash.com/photos/\(photoId)"
-//        
-//        let header: HTTPHeaders = [
-//            "Authorization": "Client-ID eTMuOjYsTqucqjFME7pde2fYjID_wYPsNXK02c4S4ps"
-//        ]
-//        
-//        AF.request(url, method: .get, headers: header).responseData { response in
-//            guard let data = response.value else { return }
-//            do {
-//                let photo = try JSONDecoder().decode(GetPhotoResults.self, from: data)
-//                completion(photo)
-//            } catch {
-//                print(error)
-//            }
-//        }
-//        
-//    }
+    func getPhoto (photoId: String, completion: @escaping (GetPhotoResults) -> Void){
+        let url = "https://api.unsplash.com/photos/\(photoId)"
+        
+        let header: HTTPHeaders = [
+            "Authorization": "Client-ID eTMuOjYsTqucqjFME7pde2fYjID_wYPsNXK02c4S4ps"
+        ]
+        
+        AF.request(url, method: .get, headers: header).responseData { response in
+            guard let data = response.value else { return }
+            do {
+                let photo = try JSONDecoder().decode(GetPhotoResults.self, from: data)
+                completion(photo)
+            } catch {
+                print(error)
+            }
+        }
+        
+    }
 }

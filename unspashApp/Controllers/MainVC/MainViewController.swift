@@ -103,9 +103,9 @@ class MainViewController: UICollectionViewController {
     // MARK: - Collection view delegate
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let detailVC = DetailViewController()
-////        detailVC.photoID = photos[indexPath.item].id
-//        navigationController?.pushViewController(detailVC, animated: true)
+        let detailVC = DetailViewController()
+        detailVC.photoID = photos[indexPath.item].id
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 
 }
