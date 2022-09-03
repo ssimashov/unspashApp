@@ -17,6 +17,8 @@
 		F646931728C2901D007A4443 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F646931628C2901D007A4443 /* DetailViewController.swift */; };
 		F646931B28C37380007A4443 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F646931A28C37380007A4443 /* NetworkService.swift */; };
 		F646931D28C379B8007A4443 /* SearchPhotoResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = F646931C28C379B8007A4443 /* SearchPhotoResults.swift */; };
+		F646932128C387BB007A4443 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F646932028C387BB007A4443 /* MainCollectionViewCell.swift */; };
+		F646932328C3DE84007A4443 /* FavoriteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F646932228C3DE84007A4443 /* FavoriteCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		F646931628C2901D007A4443 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		F646931A28C37380007A4443 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		F646931C28C379B8007A4443 /* SearchPhotoResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotoResults.swift; sourceTree = "<group>"; };
+		F646932028C387BB007A4443 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
+		F646932228C3DE84007A4443 /* FavoriteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,24 +90,25 @@
 		F64692F328C28267007A4443 /* unspashApp */ = {
 			isa = PBXGroup;
 			children = (
+				F646931E28C3878A007A4443 /* Views */,
 				F646931928C2906C007A4443 /* Core */,
 				F646931828C29033007A4443 /* Recources */,
 				F646930B28C28400007A4443 /* Models */,
 				F646930928C283BE007A4443 /* Services */,
-				F646930828C283B7007A4443 /* VC */,
+				F646930828C283B7007A4443 /* Controllers */,
 			);
 			path = unspashApp;
 			sourceTree = "<group>";
 		};
-		F646930828C283B7007A4443 /* VC */ = {
+		F646930828C283B7007A4443 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				F646931528C28FF7007A4443 /* DetailVC */,
 				F646931228C286C6007A4443 /* FavoriteVC */,
+				F646931528C28FF7007A4443 /* DetailVC */,
 				F646930F28C28496007A4443 /* MainVC */,
 				F646930C28C2843C007A4443 /* TabbarVC */,
 			);
-			path = VC;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		F646930928C283BE007A4443 /* Services */ = {
@@ -170,6 +175,23 @@
 				F646930228C28268007A4443 /* Info.plist */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		F646931E28C3878A007A4443 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F646931F28C38794007A4443 /* Cells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F646931F28C38794007A4443 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				F646932028C387BB007A4443 /* MainCollectionViewCell.swift */,
+				F646932228C3DE84007A4443 /* FavoriteCollectionViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -286,8 +308,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F64692F528C28267007A4443 /* AppDelegate.swift in Sources */,
+				F646932128C387BB007A4443 /* MainCollectionViewCell.swift in Sources */,
 				F64692F728C28267007A4443 /* SceneDelegate.swift in Sources */,
 				F646930E28C2846B007A4443 /* TabbarViewController.swift in Sources */,
+				F646932328C3DE84007A4443 /* FavoriteCollectionViewCell.swift in Sources */,
 				F646931728C2901D007A4443 /* DetailViewController.swift in Sources */,
 				F646931128C284F3007A4443 /* MainViewController.swift in Sources */,
 				F646931D28C379B8007A4443 /* SearchPhotoResults.swift in Sources */,
