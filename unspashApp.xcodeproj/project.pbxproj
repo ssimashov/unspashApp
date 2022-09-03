@@ -23,6 +23,7 @@
 		F646932828C3E169007A4443 /* Reusable Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F646932728C3E169007A4443 /* Reusable Extension.swift */; };
 		F646932A28C3E1C9007A4443 /* UICollectionViewCell Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F646932928C3E1C9007A4443 /* UICollectionViewCell Extension.swift */; };
 		F646932C28C3E242007A4443 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F646932B28C3E242007A4443 /* Constants.swift */; };
+		F692398828C3F6A0006D777F /* GetPhotoResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = F692398728C3F6A0006D777F /* GetPhotoResults.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		F646932728C3E169007A4443 /* Reusable Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reusable Extension.swift"; sourceTree = "<group>"; };
 		F646932928C3E1C9007A4443 /* UICollectionViewCell Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell Extension.swift"; sourceTree = "<group>"; };
 		F646932B28C3E242007A4443 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		F692398728C3F6A0006D777F /* GetPhotoResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPhotoResults.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				F646931C28C379B8007A4443 /* SearchPhotoResults.swift */,
+				F692398728C3F6A0006D777F /* GetPhotoResults.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 			files = (
 				F64692F528C28267007A4443 /* AppDelegate.swift in Sources */,
 				F646932128C387BB007A4443 /* MainCollectionViewCell.swift in Sources */,
+				F692398828C3F6A0006D777F /* GetPhotoResults.swift in Sources */,
 				F64692F728C28267007A4443 /* SceneDelegate.swift in Sources */,
 				F646932828C3E169007A4443 /* Reusable Extension.swift in Sources */,
 				F646930E28C2846B007A4443 /* TabbarViewController.swift in Sources */,
