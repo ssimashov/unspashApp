@@ -83,7 +83,7 @@ class MainViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as RandomPhotoCell
+        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as MainCollectionViewCell
     
         let urlString = photos[indexPath.item].urls.small
         
@@ -103,9 +103,48 @@ class MainViewController: UICollectionViewController {
     // MARK: - Collection view delegate
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailVC = DetailViewController()
-        detailVC.photoID = photos[indexPath.item].id
-        navigationController?.pushViewController(detailVC, animated: true)
+//        let detailVC = DetailViewController()
+////        detailVC.photoID = photos[indexPath.item].id
+//        navigationController?.pushViewController(detailVC, animated: true)
     }
 
+}
+
+extension MainViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        search(shouldShow: false)
+        photos.removeAll()
+        collectionView.reloadData()
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        timer?.invalidate()
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
+            self.networkService.searchPhotos (searchText: searchText) { [weak self] photos in
+                guard let self = self else { return }
+                self.photos = photos
+                DispatchQueue.main.async() {
+                    self.collectionView.reloadData()
+                }
+            }
+        }
+    }
+}
+
+
+extension MainViewController: CHTCollectionViewDelegateWaterfallLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let collectionWidth = collectionView.frame.width
+        let cellWidth = collectionWidth / 2.0
+        
+        let photoWidth: CGFloat = CGFloat(photos[indexPath.item].width)
+        let photoHeight: CGFloat = CGFloat(photos[indexPath.item].height)
+
+        let aspectRatio = photoHeight / photoWidth
+        
+        let cellHeight = cellWidth * aspectRatio
+        
+        return CGSize(width: cellWidth, height: cellHeight)
+    }
 }

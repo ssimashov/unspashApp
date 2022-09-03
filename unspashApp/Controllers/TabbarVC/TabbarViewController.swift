@@ -9,21 +9,7 @@ import UIKit
 
 class TabbarViewController: UITabBarController {
     
-    enum ControllerTitleNames: String {
-        case searchPhotosControllerTitle = "Search photos"
-        case favoritePhotosControllerTitle = "Favorite photos"
-        case detailControllerTitle = "Detail"
-    }
     
-    enum ImageNames: String {
-        case searchPhotosTabbarImage = "photo.on.rectangle.angled"
-        case favoritePhotosTabbarImage = "heart"
-    }
-    
-    enum TabbarTitleNames: String {
-        case searchPhotosTabbarTitle = "Search"
-        case favoritePhotosTabbarTitle = "Favorite"
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,12 +17,11 @@ class TabbarViewController: UITabBarController {
         tabBar.backgroundColor = .blue
         
         let mainVC = MainViewController()
-//        let favoriteVC = FavoriteViewController()
+        let favoriteVC = FavoriteViewController()
         
         viewControllers = [createNavigationController(rootViewController: mainVC, title: "Find", image: UIImage(systemName: "photo.on.rectangle.angled")!)
-//                           ,
-//        createNavigationController(rootViewController: favoriteVC, title: "Favorite", image: UIImage(systemName: "heart")!)
-        ]
+                           ,
+        createNavigationController(rootViewController: favoriteVC, title: "Favorite", image: UIImage(systemName: "heart")!)]
     }
     
 

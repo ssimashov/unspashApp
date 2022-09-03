@@ -10,35 +10,48 @@ import Alamofire
 
 class NetworkService {
     
-    func searchPhoto (searchText: String, completion: @escaping ([Photos]) -> Void){
+    func searchPhotos(searchText: String, completion: @escaping ([Photos]) -> Void) {
+        
         let url = "https://api.unsplash.com/search/photos"
+        
+        let header: HTTPHeaders = [
+            "Authorization": "Client-ID eTMuOjYsTqucqjFME7pde2fYjID_wYPsNXK02c4S4ps"
+        ]
+        
         let params: Parameters = [
-            "query": searchText]
-        AF.request(url, method: .get, parameters: params).responseData { response in
+            "query": searchText,
+            "per_page": "20"
+        ]
+        
+        AF.request(url, method: .get, parameters: params,
+                   headers: header).responseData { response in
             guard let data = response.value else { return }
             do {
-                let photos = try JSONDecoder().decode(SearchPhotoResults.self, from: data).results
+                let photos = try JSONDecoder().decode(SearchPhotosResults.self, from: data).results
                 completion(photos)
-            }
-            catch {
+            } catch {
                 print(error)
             }
         }
     }
     
+    
 //    func getPhoto (photoId: String, completion: @escaping (GetPhotoResults) -> Void){
 //        let url = "https://api.unsplash.com/photos/\(photoId)"
-//
-//        AF.request(url, method: .get).responseData { response in
+//        
+//        let header: HTTPHeaders = [
+//            "Authorization": "Client-ID eTMuOjYsTqucqjFME7pde2fYjID_wYPsNXK02c4S4ps"
+//        ]
+//        
+//        AF.request(url, method: .get, headers: header).responseData { response in
 //            guard let data = response.value else { return }
 //            do {
-//                let photo = try JSONDecoder().decode(GetPhotoResults.self, from: data).results
+//                let photo = try JSONDecoder().decode(GetPhotoResults.self, from: data)
 //                completion(photo)
-//            }
-//            catch {
+//            } catch {
 //                print(error)
 //            }
 //        }
+//        
 //    }
-    
 }

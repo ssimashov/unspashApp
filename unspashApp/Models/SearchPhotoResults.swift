@@ -5,17 +5,19 @@
 //  Created by Sergey Simashov on 03.09.2022.
 //
 
-struct SearchPhotoResults: Codable {
+struct SearchPhotosResults: Decodable {
+    let total: Int
     let results: [Photos]
 }
 
-struct Photos: Codable {
+struct Photos: Decodable {
     let id: String
-    let width: String
-    let heihgt: String
-    let urls: UrlResponce
+    let width: Int
+    let height: Int
+    let urls: urls
 }
 
-struct UrlResponce: Codable {
+struct urls: Decodable {
     let small: String
 }
+
