@@ -19,8 +19,8 @@ class DetailViewController: UIViewController {
     }()
     
     let networkService = NetworkService()
-    var data: GetPhotoResults?
-    var results: Results<GetPhotoResults>?
+    var data: DetailedPhotoResults?
+    var results: Results<DetailedPhotoResults>?
     var photoID: String?
     var isLiked: Bool?
     
@@ -51,7 +51,7 @@ class DetailViewController: UIViewController {
     
     private func configureUI() {
         view.backgroundColor = .white
-        navigationItem.title = ControllerTitleNames.detailControllerTitle.rawValue
+        navigationItem.title = "Подробная информация"
         
         detailView.detailVC = self
         detailView.likeControl.addTarget(self, action: #selector(addToFavorites), for: .touchUpInside)
@@ -64,7 +64,7 @@ class DetailViewController: UIViewController {
         
         do {
             let realm = try Realm()
-            results = realm.objects(GetPhotoResults.self).filter("id CONTAINS '\(data.id)'")
+            results = realm.objects(DetailedPhotoResults.self).filter("id CONTAINS '\(data.id)'")
             if let id = results?.first?.id {
                 idFromRealm = id
             }
@@ -76,13 +76,13 @@ class DetailViewController: UIViewController {
             data.currentTime = getCurrentTime()
             data.isLiked = true
             
-            ChangeDataInRealm.saveData(data)
+            RealmService.saveData(data)
             
             alert(message: "Фото успешно добавлено!")
             
         } else if isLiked == true && photoID == idFromRealm {
             
-            ChangeDataInRealm.deleteData(data)
+            RealmService.deleteData(data)
             
             alert(message: "Фото удалено")
         }
@@ -115,7 +115,7 @@ class DetailViewController: UIViewController {
         
         do {
             let realm = try Realm()
-            results = realm.objects(GetPhotoResults.self).filter("id CONTAINS '\(id)'")
+            results = realm.objects(DetailedPhotoResults.self).filter("id CONTAINS '\(id)'")
             guard let isLikedFromRealm = results?.first?.isLiked else { return isLiked = false}
             detailView.likeControl.isLiked = isLikedFromRealm
             isLiked = isLikedFromRealm

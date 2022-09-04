@@ -27,7 +27,7 @@ class NetworkService {
                    headers: header).responseData { response in
             guard let data = response.value else { return }
             do {
-                let photos = try JSONDecoder().decode(SearchPhotosResults.self, from: data).results
+                let photos = try JSONDecoder().decode(PhotoResults.self, from: data).results
                 completion(photos)
             } catch {
                 print(error)
@@ -36,7 +36,8 @@ class NetworkService {
     }
     
     
-    func getPhoto (photoId: String, completion: @escaping (GetPhotoResults) -> Void){
+    func getPhoto (photoId: String, completion: @escaping (DetailedPhotoResults) -> Void){
+        
         let url = "https://api.unsplash.com/photos/\(photoId)"
         
         let header: HTTPHeaders = [
@@ -46,12 +47,11 @@ class NetworkService {
         AF.request(url, method: .get, headers: header).responseData { response in
             guard let data = response.value else { return }
             do {
-                let photo = try JSONDecoder().decode(GetPhotoResults.self, from: data)
+                let photo = try JSONDecoder().decode(DetailedPhotoResults.self, from: data)
                 completion(photo)
             } catch {
                 print(error)
             }
         }
-        
     }
 }

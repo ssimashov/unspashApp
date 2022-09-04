@@ -14,14 +14,14 @@ class TabbarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tabBar.backgroundColor = .blue
+        tabBar.backgroundColor = .lightGray
         
         let mainVC = MainViewController()
-        let favoriteVC = FavoriteViewController()
+        let favoriteVC = FavoriteTableVC()
         
-        viewControllers = [createNavigationController(rootViewController: mainVC, title: "Find", image: UIImage(systemName: "photo.on.rectangle.angled")!)
+        viewControllers = [createNavigationController(rootViewController: mainVC, title: "Поиск", image: UIImage(systemName: "photo.on.rectangle.angled")!)
                            ,
-        createNavigationController(rootViewController: favoriteVC, title: "Favorite", image: UIImage(systemName: "heart")!)]
+        createNavigationController(rootViewController: favoriteVC, title: "Избранное", image: UIImage(systemName: "heart")!)]
     }
     
 

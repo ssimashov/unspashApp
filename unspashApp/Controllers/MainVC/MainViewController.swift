@@ -53,7 +53,7 @@ class MainViewController: UICollectionViewController {
         searchBar.delegate = self
         showSearchBarButton(shouldShow: true)
         
-        navigationItem.title = ControllerTitleNames.searchPhotosControllerTitle.rawValue
+        navigationItem.title = "Искать фотографии"
     }
     
     private func showSearchBarButton(shouldShow: Bool) {

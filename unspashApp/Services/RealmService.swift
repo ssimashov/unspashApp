@@ -1,5 +1,5 @@
 //
-//  ChangeDataInRealm.swift
+//  RealmService.swift
 //  unspashApp
 //
 //  Created by Sergey Simashov on 04.09.2022.
@@ -8,9 +8,9 @@
 import Foundation
 import RealmSwift
 
-class ChangeDataInRealm {
+class RealmService {
     
-    static func saveData (_ data: GetPhotoResults) {
+    static func saveData (_ data: DetailedPhotoResults) {
         do {
             let config = Realm.Configuration.defaultConfiguration
             
@@ -24,7 +24,7 @@ class ChangeDataInRealm {
         }
     }
     
-    static func deleteData (_ data: GetPhotoResults) {
+    static func deleteData (_ data: DetailedPhotoResults) {
         
         guard let location = data.location else { return }
         guard let urls = data.urls else { return }
