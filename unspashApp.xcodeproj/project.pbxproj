@@ -134,7 +134,7 @@
 			children = (
 				F646931228C286C6007A4443 /* FavoriteVC */,
 				F646931528C28FF7007A4443 /* DetailVC */,
-				F646930F28C28496007A4443 /* MainVC */,
+				F646930F28C28496007A4443 /* SearchVC */,
 				F646930C28C2843C007A4443 /* TabbarVC */,
 			);
 			path = Controllers;
@@ -166,12 +166,12 @@
 			path = TabbarVC;
 			sourceTree = "<group>";
 		};
-		F646930F28C28496007A4443 /* MainVC */ = {
+		F646930F28C28496007A4443 /* SearchVC */ = {
 			isa = PBXGroup;
 			children = (
 				F646931028C284F3007A4443 /* SearchCollectionViewController + extensions.swift */,
 			);
-			path = MainVC;
+			path = SearchVC;
 			sourceTree = "<group>";
 		};
 		F646931228C286C6007A4443 /* FavoriteVC */ = {

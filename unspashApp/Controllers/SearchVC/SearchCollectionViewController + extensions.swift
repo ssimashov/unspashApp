@@ -35,6 +35,21 @@ class SearchCollectionViewController: UICollectionViewController {
         super.viewDidLoad()
         
         configureUI()
+        initialLoadData()
+    }
+    
+    private func initialLoadData(){
+        timer?.invalidate()
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
+            self.networkService.searchPhotos (searchText: "hello") { [weak self] photos in
+                guard let self = self else { return }
+                self.photos = photos
+                DispatchQueue.main.async() {
+                    self.collectionView.reloadData()
+                }
+            }
+        }
     }
     
     private func configureUI() {
@@ -105,7 +120,7 @@ class SearchCollectionViewController: UICollectionViewController {
 extension SearchCollectionViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         search(shouldShow: false)
-        photos.removeAll()
+//        photos.removeAll()
         collectionView.reloadData()
     }
     
