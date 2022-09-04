@@ -1,5 +1,5 @@
 //
-//  LocationContentView.swift
+//  DownloadsView.swift
 //  unspashApp
 //
 //  Created by Sergey Simashov on 04.09.2022.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-class LocationContentView: UIView {
- 
+class DownloadsView: UIView {
+    
     let label: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
@@ -16,9 +16,9 @@ class LocationContentView: UIView {
         return label
     }()
     
-    private let imageView: UIImageView = {
+    let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "mappin")
+        imageView.image = UIImage(systemName: "square.and.arrow.down")
         imageView.tintColor = .gray
         return imageView
     }()
@@ -26,14 +26,14 @@ class LocationContentView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setupConfig()
+        configureView()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-
-    private func setupConfig() {
+    
+    private func configureView() {
         addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
@@ -50,3 +50,5 @@ class LocationContentView: UIView {
         label.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
     }
 }
+
+

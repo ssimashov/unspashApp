@@ -10,7 +10,7 @@ import UIKit
 class LikeControl: UIControl {
     
     var isLiked: Bool? = false
-
+    
     let like: UIImageView = {
         let like = UIImageView()
         like.contentMode = .scaleAspectFill
@@ -19,15 +19,15 @@ class LikeControl: UIControl {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-
-        setupConfig()
+        
+        configureControl()
     }
-
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-
-    private func setupConfig() {
+    
+    private func configureControl() {
         addSubview(like)
         like.translatesAutoresizingMaskIntoConstraints = false
         like.topAnchor.constraint(equalTo: topAnchor).isActive = true
@@ -45,15 +45,13 @@ class LikeControl: UIControl {
             self.like.tintColor = .red
         }
     }
-
+    
     override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         return true
     }
-
+    
     override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
         
-//        guard let isLiked = isLiked else { return }
-
         if isLiked == false {
             
             UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.25, options: [.autoreverse]) {

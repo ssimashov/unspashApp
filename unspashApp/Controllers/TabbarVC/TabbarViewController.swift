@@ -13,18 +13,18 @@ class TabbarViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tabBar.backgroundColor = .lightGray
         
-        let mainVC = MainViewController()
-        let favoriteVC = FavoriteTableVC()
+        let searchVC = SearchCollectionViewController()
+        let favoriteVC = FavoriteTableViewController()
         
-        viewControllers = [createNavigationController(rootViewController: mainVC, title: "Поиск", image: UIImage(systemName: "photo.on.rectangle.angled")!)
+        viewControllers = [createNavigationController(rootViewController: searchVC, title: "Поиск", image: UIImage(systemName: "photo.on.rectangle.angled")!)
                            ,
-        createNavigationController(rootViewController: favoriteVC, title: "Избранное", image: UIImage(systemName: "heart")!)]
+                           createNavigationController(rootViewController: favoriteVC, title: "Избранное", image: UIImage(systemName: "heart")!)]
     }
     
-
+    
     private func createNavigationController(rootViewController: UIViewController, title: String, image: UIImage) -> UIViewController {
         let navigationVC = UINavigationController (rootViewController: rootViewController)
         navigationVC.tabBarItem.title = title

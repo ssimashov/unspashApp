@@ -1,5 +1,5 @@
 //
-//  DownloadsContentView.swift
+//  CreatedAtView.swift
 //  unspashApp
 //
 //  Created by Sergey Simashov on 04.09.2022.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DownloadsContentView: UIView {
+class CreatedAtView: UIView {
     
     let label: UILabel = {
         let label = UILabel()
@@ -18,7 +18,7 @@ class DownloadsContentView: UIView {
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "square.and.arrow.down")
+        imageView.image = UIImage(systemName: "calendar")
         imageView.tintColor = .gray
         return imageView
     }()
@@ -26,14 +26,14 @@ class DownloadsContentView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setupConfig()
+        configureView()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    private func setupConfig() {
+    private func configureView() {
         addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
@@ -50,5 +50,4 @@ class DownloadsContentView: UIView {
         label.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
     }
 }
-
 

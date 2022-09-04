@@ -1,5 +1,5 @@
 //
-//  MainCollectionViewCell.swift
+//  SearchCollectionViewCell.swift
 //  unspashApp
 //
 //  Created by Sergey Simashov on 03.09.2022.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainCollectionViewCell: UICollectionViewCell {
+class SearchCollectionViewCell: UICollectionViewCell {
     let photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -18,13 +18,13 @@ class MainCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect){
         super.init(frame: frame)
-        setConstraints()
+        configureCell()
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    private func setConstraints(){
+    private func configureCell(){
         contentView.addSubview(photoImageView)
         photoImageView.translatesAutoresizingMaskIntoConstraints = false
         photoImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true

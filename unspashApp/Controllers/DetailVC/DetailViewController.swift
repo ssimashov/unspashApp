@@ -11,8 +11,6 @@ import RealmSwift
 
 class DetailViewController: UIViewController {
     
-    // MARK: - Properties
-    
     lazy var detailView: DetailView = {
         let view = DetailView()
         return view
@@ -24,13 +22,11 @@ class DetailViewController: UIViewController {
     var photoID: String?
     var isLiked: Bool?
     
-    // MARK: - Life Cycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
-        getData()
+        fetchData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -43,11 +39,8 @@ class DetailViewController: UIViewController {
         let aspectRatio = floatHeight / floatWidth
         let height = viewWidth * aspectRatio
         detailView.imageView.heightAnchor.constraint(equalToConstant: height).isActive = true
-        
         detailView.likeControl.setupLikeColor()
     }
-    
-    // MARK: - Methods
     
     private func configureUI() {
         view.backgroundColor = .white
@@ -71,31 +64,31 @@ class DetailViewController: UIViewController {
         } catch {
             print(error)
         }
-
+        
         if isLiked == false && photoID != idFromRealm {
             data.currentTime = getCurrentTime()
             data.isLiked = true
             
             RealmService.saveData(data)
             
-            alert(message: "Фото успешно добавлено!")
+            alert(message: "Фото добавлено!")
             
         } else if isLiked == true && photoID == idFromRealm {
             
             RealmService.deleteData(data)
             
-            alert(message: "Фото удалено")
+            alert(message: "Фото удалено!")
         }
     }
     
-    private func getData() {
+    private func fetchData() {
         guard let id = photoID else { return }
         
         networkService.getPhoto(photoId: id) { [weak self] response in
             guard let self = self else { return }
             
             self.data = response
-
+            
             guard let data = self.data else { return }
             guard let name = data.user?.name else { return }
             guard let url = data.urls?.regular else { return }
@@ -103,13 +96,13 @@ class DetailViewController: UIViewController {
             let createdAt = data.createdAt
             
             self.fetchPhoto(url: url)
-            self.detailView.nameContentView.label.text = name
-            self.detailView.downloadsContentView.label.text = downloads
-            self.detailView.createdAtContentView.label.text = self.changeDateFormat(date: createdAt)
+            self.detailView.creatorNameView.label.text = name
+            self.detailView.downloadsView.label.text = downloads
+            self.detailView.createdAtView.label.text = self.changeDateFormat(date: createdAt)
             
             if let country = data.location?.country,
                let city = data.location?.city {
-                self.detailView.locationContentView.label.text = "\(city), \(country)"
+                self.detailView.locationView.label.text = "\(city), \(country)"
             }
         }
         
@@ -124,7 +117,6 @@ class DetailViewController: UIViewController {
         }
     }
     
-    // Получение изображения из сети
     private func fetchPhoto(url: String) {
         if let url = URL(string: url) {
             DispatchQueue.global().async {
@@ -138,7 +130,6 @@ class DetailViewController: UIViewController {
         }
     }
     
-    // Изменение формата даты для отображения createdAT
     func changeDateFormat(date: String) -> String {
         let oldDateFormat = DateFormatter()
         oldDateFormat.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
@@ -154,7 +145,6 @@ class DetailViewController: UIViewController {
         }
     }
     
-    // Разделитель тысяч для числа загрузок
     func addPoints(inputNumber: NSMutableString) -> String {
         var count: Int = inputNumber.length
         while count >= 4 {
@@ -164,8 +154,7 @@ class DetailViewController: UIViewController {
         print(inputNumber)
         return String(inputNumber)
     }
-
-    // Получение текущего времени для добавления нового понравившегося изображения в начало таблицы
+    
     func getCurrentTime() -> String {
         let now = Date()
         let formatter = DateFormatter()
@@ -175,7 +164,6 @@ class DetailViewController: UIViewController {
         return dateString
     }
     
-    // Уведомление об успешном выполнении действия
     func alert(message: String) {
         let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)

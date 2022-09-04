@@ -1,5 +1,5 @@
 //
-//  CreatedAtContentView.swift
+//  LocationView.swift
 //  unspashApp
 //
 //  Created by Sergey Simashov on 04.09.2022.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CreatedAtContentView: UIView {
+class LocationView: UIView {
     
     let label: UILabel = {
         let label = UILabel()
@@ -16,9 +16,9 @@ class CreatedAtContentView: UIView {
         return label
     }()
     
-    let imageView: UIImageView = {
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "calendar")
+        imageView.image = UIImage(systemName: "mappin")
         imageView.tintColor = .gray
         return imageView
     }()
@@ -26,14 +26,14 @@ class CreatedAtContentView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setupConfig()
+        configureView()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    private func setupConfig() {
+    private func configureView() {
         addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
@@ -50,4 +50,3 @@ class CreatedAtContentView: UIView {
         label.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
     }
 }
-

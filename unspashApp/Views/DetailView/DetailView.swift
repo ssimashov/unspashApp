@@ -11,7 +11,7 @@ class DetailView: UIView {
     
     weak var detailVC: DetailViewController? {
         didSet {
-            return setupTestView()
+            return setupView()
         }
     }
     
@@ -33,17 +33,17 @@ class DetailView: UIView {
     }()
     
     let likeControl = LikeControl()
-    let locationContentView = LocationContentView()
-    let nameContentView = NameContentView()
-    let downloadsContentView = DownloadsContentView()
-    let createdAtContentView = CreatedAtContentView()
+    let locationView = LocationView()
+    let creatorNameView = CreatorNameView()
+    let downloadsView = DownloadsView()
+    let createdAtView = CreatedAtView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+        
         setupContraints()
     }
-
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -77,33 +77,33 @@ class DetailView: UIView {
         likeControl.heightAnchor.constraint(equalToConstant: 30).isActive = true
         likeControl.widthAnchor.constraint(equalToConstant: 30).isActive = true
         
-        contenView.addSubview(locationContentView)
-        locationContentView.translatesAutoresizingMaskIntoConstraints = false
-        locationContentView.topAnchor.constraint(equalTo: likeControl.bottomAnchor).isActive = true
-        locationContentView.leadingAnchor.constraint(equalTo: contenView.leadingAnchor).isActive = true
-        locationContentView.trailingAnchor.constraint(equalTo: contenView.trailingAnchor).isActive = true
+        contenView.addSubview(locationView)
+        locationView.translatesAutoresizingMaskIntoConstraints = false
+        locationView.topAnchor.constraint(equalTo: likeControl.bottomAnchor).isActive = true
+        locationView.leadingAnchor.constraint(equalTo: contenView.leadingAnchor).isActive = true
+        locationView.trailingAnchor.constraint(equalTo: contenView.trailingAnchor).isActive = true
         
-        contenView.addSubview(nameContentView)
-        nameContentView.translatesAutoresizingMaskIntoConstraints = false
-        nameContentView.topAnchor.constraint(equalTo: locationContentView.bottomAnchor).isActive = true
-        nameContentView.leadingAnchor.constraint(equalTo: contenView.leadingAnchor).isActive = true
-        nameContentView.trailingAnchor.constraint(equalTo: contenView.trailingAnchor).isActive = true
+        contenView.addSubview(creatorNameView)
+        creatorNameView.translatesAutoresizingMaskIntoConstraints = false
+        creatorNameView.topAnchor.constraint(equalTo: locationView.bottomAnchor).isActive = true
+        creatorNameView.leadingAnchor.constraint(equalTo: contenView.leadingAnchor).isActive = true
+        creatorNameView.trailingAnchor.constraint(equalTo: contenView.trailingAnchor).isActive = true
         
-        contenView.addSubview(downloadsContentView)
-        downloadsContentView.translatesAutoresizingMaskIntoConstraints = false
-        downloadsContentView.topAnchor.constraint(equalTo: nameContentView.bottomAnchor).isActive = true
-        downloadsContentView.leadingAnchor.constraint(equalTo: contenView.leadingAnchor).isActive = true
-        downloadsContentView.trailingAnchor.constraint(equalTo: contenView.trailingAnchor).isActive = true
+        contenView.addSubview(downloadsView)
+        downloadsView.translatesAutoresizingMaskIntoConstraints = false
+        downloadsView.topAnchor.constraint(equalTo: creatorNameView.bottomAnchor).isActive = true
+        downloadsView.leadingAnchor.constraint(equalTo: contenView.leadingAnchor).isActive = true
+        downloadsView.trailingAnchor.constraint(equalTo: contenView.trailingAnchor).isActive = true
         
-        contenView.addSubview(createdAtContentView)
-        createdAtContentView.translatesAutoresizingMaskIntoConstraints = false
-        createdAtContentView.topAnchor.constraint(equalTo: downloadsContentView.bottomAnchor).isActive = true
-        createdAtContentView.bottomAnchor.constraint(equalTo: contenView.bottomAnchor).isActive = true
-        createdAtContentView.leadingAnchor.constraint(equalTo: contenView.leadingAnchor).isActive = true
-        createdAtContentView.trailingAnchor.constraint(equalTo: contenView.trailingAnchor).isActive = true
+        contenView.addSubview(createdAtView)
+        createdAtView.translatesAutoresizingMaskIntoConstraints = false
+        createdAtView.topAnchor.constraint(equalTo: downloadsView.bottomAnchor).isActive = true
+        createdAtView.bottomAnchor.constraint(equalTo: contenView.bottomAnchor).isActive = true
+        createdAtView.leadingAnchor.constraint(equalTo: contenView.leadingAnchor).isActive = true
+        createdAtView.trailingAnchor.constraint(equalTo: contenView.trailingAnchor).isActive = true
     }
     
-    private func setupTestView() {
+    private func setupView() {
         guard let detailVC = detailVC else { return }
         detailVC.view.addSubview(self)
         translatesAutoresizingMaskIntoConstraints = false

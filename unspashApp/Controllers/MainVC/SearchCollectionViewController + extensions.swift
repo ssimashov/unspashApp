@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  SearchCollectionViewController.swift
 //  unspashApp
 //
 //  Created by Sergey Simashov on 02.09.2022.
@@ -10,17 +10,13 @@ import Alamofire
 import CHTCollectionViewWaterfallLayout
 
 
-class MainViewController: UICollectionViewController {
-
-    // MARK: - Properties
+class SearchCollectionViewController: UICollectionViewController {
     
     let networkService = NetworkService()
     var photos = [Photos]()
     
     private let searchBar = UISearchBar()
     var timer: Timer?
-    
-    // MARK: - Init
     
     init() {
         let layout = CHTCollectionViewWaterfallLayout()
@@ -35,19 +31,15 @@ class MainViewController: UICollectionViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Life Cycle
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
     }
     
-    // MARK: - Methods
-    
     private func configureUI() {
         collectionView.backgroundColor = .white
-        collectionView.registerCell(MainCollectionViewCell.self)
+        collectionView.registerCell(SearchCollectionViewCell.self)
         
         searchBar.sizeToFit()
         searchBar.delegate = self
@@ -77,14 +69,14 @@ class MainViewController: UICollectionViewController {
     }
     
     // MARK: - Collection view data source
-
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
     }
-
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as MainCollectionViewCell
     
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as SearchCollectionViewCell
+        
         let urlString = photos[indexPath.item].urls.small
         
         if let url = URL(string: urlString) {
@@ -96,7 +88,7 @@ class MainViewController: UICollectionViewController {
                 }
             }
         }
-    
+        
         return cell
     }
     
@@ -107,16 +99,16 @@ class MainViewController: UICollectionViewController {
         detailVC.photoID = photos[indexPath.item].id
         navigationController?.pushViewController(detailVC, animated: true)
     }
-
+    
 }
 
-extension MainViewController: UISearchBarDelegate {
+extension SearchCollectionViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         search(shouldShow: false)
         photos.removeAll()
         collectionView.reloadData()
     }
-
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         timer?.invalidate()
         
@@ -133,14 +125,15 @@ extension MainViewController: UISearchBarDelegate {
 }
 
 
-extension MainViewController: CHTCollectionViewDelegateWaterfallLayout {
+extension SearchCollectionViewController: CHTCollectionViewDelegateWaterfallLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
         let collectionWidth = collectionView.frame.width
         let cellWidth = collectionWidth / 2.0
         
         let photoWidth: CGFloat = CGFloat(photos[indexPath.item].width)
         let photoHeight: CGFloat = CGFloat(photos[indexPath.item].height)
-
+        
         let aspectRatio = photoHeight / photoWidth
         
         let cellHeight = cellWidth * aspectRatio
